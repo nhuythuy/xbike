@@ -15,7 +15,8 @@ char dv_clientID[] = "d175a430-d9b4-11ea-b767-3f1a8f1211ba";
 #define CH_RUNTIME                      6
 
 // digital states
-#define CH_DOOR_MAIN            10
+#define CH_BIKE_STILL                   10
+#define CH_BATT_STILL                   11
 
 int cayenneCounter = 0;
 
@@ -27,7 +28,7 @@ CAYENNE_OUT(CH_BATT_VOLTAGE){
 
 CAYENNE_OUT(CH_MINUTES_BIKE_STILL){
   delay(1000);
-  Cayenne.virtualWrite(CH_MINUTES_BIKE_STILL, minutesBikeStill, "counter");
+  Cayenne.virtualWrite(CH_MINUTES_BIKE_STILL, minutesBikeNotStill, "counter");
 }
 
 CAYENNE_OUT(CH_RUNTIME){

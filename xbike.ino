@@ -65,7 +65,7 @@ void setup() {
   pinMode(PIN_SS_BATT_STILL, INPUT);
   pinMode(PIN_IN_SIGNAL_LEFT, INPUT);
   pinMode(PIN_IN_SIGNAL_RIGHT, INPUT);
-//  attachInterrupt(digitalPinToInterrupt(PIN_SS_ENTRANCE_MOTION), detectsMovement, RISING);
+  attachInterrupt(digitalPinToInterrupt(PIN_SS_BIKE_STILL), detectBikeMove, RISING);
 
   pinMode(PIN_LED, OUTPUT);
   pinMode(PIN_OUT_SIGNAL_LEFT, OUTPUT);
@@ -91,6 +91,7 @@ void loop() {
   blinkSignal();
 
   minutesRuntime = millis() / 60000;
+  minutesBikeNotStill = (millis() - millisBikeNotStill) / 60000;
 
   if(WiFi.status() == WL_DISCONNECTED){
     Serial.println("WiFi connection lost! Reconnecting...");
@@ -112,6 +113,13 @@ void loop() {
     }
 
   }
+}
+
+ICACHE_RAM_ATTR void detectBikeMove() {
+  millisBikeNotStill = millis();
+  Serial.println("BIKE MOVE DETECTED!!!");
+
+  writeCayenneDigitalStates(CH_BIKE_STILL, true);
 }
 
 void blinkSignal(){
