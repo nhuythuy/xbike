@@ -1,9 +1,5 @@
-// May 14 2020
+// Otc 08 2020
 // Author: Thuy Nguyen
-
-// Ref.:
-// Website: www.arduinesp.com
-// https://learn.adafruit.com/dht/using-a-dhtxx-sensor
 
 
 #include <DHT.h>
@@ -21,9 +17,6 @@ const char* ssid = "VNNO"; // "DNVGuest" "Thuy's iPhone"; "matsuya";
 const char* password = WIFI_PW;
 
 #define MAX_SUPPLY_VOLT   16.157    // volt: 10K(9910)+39K(38610) --> 3.3*(9910+38610)/9910 = 16.1570131181 V 
-#define DELAY_LONG        5000      // 5,0 seconds
-#define DELAY_SHORT       2500      // 2,5 seconds
-#define MOTION_DELAY      0*60*1000  // 1 mins delay
 
 DHT dht(PIN_SS_DHT, DHT11,15);
 WiFiClient client;
@@ -39,10 +32,7 @@ const long blinkInterval = 500;      // interval at which to blink (milliseconds
 unsigned long previousMillis = 0;        // will store last time LED was updated
 int ledState = LOW;             // ledState used to set the LED
 
-long delayMs = DELAY_LONG;
-
-unsigned long timeNow = millis();
-unsigned long lastTrigger = millis();
+unsigned long currentMillis = millis();
 
 void WIFI_Connect(){
   Serial.println();
@@ -125,7 +115,7 @@ void loop() {
 }
 
 void blinkSignal(){
-  unsigned long currentMillis = millis();
+  currentMillis = millis();
 
   if (currentMillis - previousMillis >= blinkInterval) {
     // save the last time you blinked the LED
