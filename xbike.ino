@@ -88,18 +88,9 @@ void setup() {
 
 void loop() {
   updateHumidTempe();
-
   blinkSignal();
 
-  runtimeMinutes = millis() / 60000;
-
-  Cayenne.loop();
-  if(!cloudUploaded && needUploadCloud == true)
-  {
-    if(cayenneCounter++ > CH_HUMIDITY) // last channel
-      cayenneCounter = 0;
-    cloudUploaded = true;
-  }
+  minutesRuntime = millis() / 60000;
 
   if(WiFi.status() == WL_DISCONNECTED){
     Serial.println("WiFi connection lost! Reconnecting...");
@@ -111,7 +102,16 @@ void loop() {
     Serial.println("Cayenne reconnecting...");
     delay(1000);    
   }
+  else{
+    Cayenne.loop();
+    if(!cloudUploaded && needUploadCloud == true)
+    {
+      if(cayenneCounter++ > CH_HUMIDITY) // last channel
+        cayenneCounter = 0;
+      cloudUploaded = true;
+    }
 
+  }
 }
 
 void blinkSignal(){
@@ -185,8 +185,4 @@ void updateSensors(){
   Serial.println("1. Temperature:    " + String(temp) + " deg C");
   Serial.println("2. Humidity:       " + String(humidity) + " %");
   Serial.println();
-}
-
-
-void updateActuator(){
 }

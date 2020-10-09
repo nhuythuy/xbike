@@ -8,16 +8,14 @@ char dv_clientID[] = "d175a430-d9b4-11ea-b767-3f1a8f1211ba";
 
 
 #define CH_BATT_VOLTAGE                 1
-#define CH_MINUTES_DOOR_MAIN_OPENED     2
-#define CH_MINUTES_DOOR_BASEMENT_OPENED 3
+#define CH_MINUTES_BIKE_STILL           2
+#define CH_MINUTES_BATT_STILL           2
 #define CH_TEMPERATURE                  4
 #define CH_HUMIDITY                     5
 #define CH_RUNTIME                      6
-#define CH_SECONDS_MOTION_DETECTED      7
 
 // digital states
 #define CH_DOOR_MAIN            10
-#define CH_DOOR_BASEMENT        11
 
 int cayenneCounter = 0;
 
@@ -27,14 +25,14 @@ CAYENNE_OUT(CH_BATT_VOLTAGE){
   Cayenne.virtualWrite(CH_BATT_VOLTAGE, ssBatteryVolt, "batt", "V");
 }
 
-CAYENNE_OUT(CH_MINUTES_DOOR_MAIN_OPENED){
+CAYENNE_OUT(CH_MINUTES_BIKE_STILL){
   delay(1000);
-  Cayenne.virtualWrite(CH_MINUTES_DOOR_MAIN_OPENED, minutesDoorMainOpened, "counter");
+  Cayenne.virtualWrite(CH_MINUTES_BIKE_STILL, minutesBikeStill, "counter");
 }
 
 CAYENNE_OUT(CH_RUNTIME){
   delay(1000);
-  Cayenne.virtualWrite(CH_RUNTIME, runtimeMinutes, "counter");
+  Cayenne.virtualWrite(CH_RUNTIME, minutesRuntime, "counter");
 }
 
 CAYENNE_OUT(CH_TEMPERATURE){
