@@ -4,7 +4,7 @@
 // Cayenne authentication info. This should be obtained from the Cayenne Dashboard.
 char dv_username[] = "3541f5b0-d9b3-11ea-883c-638d8ce4c23d";
 char dv_password[] = "0573b7bfc25b7afb4042b3bb93ed8f16a6dd6fc2";
-char dv_clientID[] = "d175a430-d9b4-11ea-b767-3f1a8f1211ba";
+char dv_clientID[] = "6d4d1780-3c93-11eb-8779-7d56e82df461";
 
 
 #define CH_BATT_VOLTAGE                 1

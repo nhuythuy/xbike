@@ -13,7 +13,7 @@
 
 #define CAYENNE_PRINT Serial
 
-const char* ssid = "VNNO"; // "DNVGuest" "Thuy's iPhone"; "matsuya";
+const char* ssid = "VNNO"; // "Thuy's iPhone";
 const char* password = WIFI_PW;
 
 #define MAX_SUPPLY_VOLT   16.157    // volt: 10K(9910)+39K(38610) --> 3.3*(9910+38610)/9910 = 16.1570131181 V 
@@ -75,7 +75,7 @@ void setup() {
   //Serial.begin(19200);
   Serial.begin(19200, SERIAL_8N1, SERIAL_TX_ONLY);
   delay(1000);
-  dht.begin();
+//  dht.begin();
 
   WIFI_Connect();
 
@@ -87,7 +87,7 @@ void setup() {
 }
 
 void loop() {
-  updateHumidTempe();
+//  updateHumidTempe();
   blinkSignal();
 
   minutesRuntime = millis() / 60000;
