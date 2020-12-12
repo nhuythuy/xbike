@@ -6,15 +6,14 @@
 #include "global_vars.h"
 #include "mydevices.h"
 #include <ESP8266WiFi.h>
-#include "wifi_pw.h"
 #include "pin_define.h"
 #include <NTPClient.h>
 #include <WiFiUdp.h>
 
 #define CAYENNE_PRINT Serial
 
-const char* ssid = "VNNO"; // "Thuy's iPhone";
-const char* password = WIFI_PW;
+const char* ssid = "THUY"; // "VNNO";
+const char* password = "thuy2105"; // WIFI_PW;
 
 #define MAX_SUPPLY_VOLT   16.157    // volt: 10K(9910)+39K(38610) --> 3.3*(9910+38610)/9910 = 16.1570131181 V 
 
@@ -88,6 +87,7 @@ void setup() {
 
 void loop() {
 //  updateHumidTempe();
+  getServerTime();
   blinkSignal();
 
   minutesRuntime = millis() / 60000;

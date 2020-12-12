@@ -14,6 +14,6 @@
 #define PIN_IN_SIGNAL_RIGHT         D2
 
 // outputs
-#define PIN_LED                     D4 // D4: same as built in LED GPIO2
+#define PIN_LED                     D4 // LED_BUILTIN = D4: same as built in LED GPIO2
 #define PIN_OUT_SIGNAL_LEFT         D7
 #define PIN_OUT_SIGNAL_RIGHT        D8

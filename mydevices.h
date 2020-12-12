@@ -9,7 +9,7 @@ char dv_clientID[] = "6d4d1780-3c93-11eb-8779-7d56e82df461";
 
 #define CH_BATT_VOLTAGE                 1
 #define CH_MINUTES_BIKE_STILL           2
-#define CH_MINUTES_BATT_STILL           2
+#define CH_MINUTES_BATT_STILL           3
 #define CH_TEMPERATURE                  4
 #define CH_HUMIDITY                     5
 #define CH_RUNTIME                      6
