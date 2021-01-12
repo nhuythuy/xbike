@@ -1,4 +1,4 @@
-// Otc 08 2020
+// Oct. 08 2020
 // Author: Thuy Nguyen
 
 
@@ -12,8 +12,8 @@
 
 #define CAYENNE_PRINT Serial
 
-const char* ssid = "THUY"; // "VNNO";
-const char* password = "thuy2105"; // WIFI_PW;
+const char* ssid = "VNNO";
+const char* password = "Planetvegen18A"; // WIFI_PW;
 
 #define MAX_SUPPLY_VOLT   16.157    // volt: 10K(9910)+39K(38610) --> 3.3*(9910+38610)/9910 = 16.1570131181 V 
 
@@ -28,7 +28,7 @@ bool cloudUploaded = false;
 
 // blink without delay:
 const long blinkInterval = 500;      // interval at which to blink (milliseconds)
-unsigned long previousMillis = 0;        // will store last time LED was updated
+unsigned long previousMillis = 0;    // will store last time LED was updated
 int ledState = LOW;             // ledState used to set the LED
 
 unsigned long currentMillis = millis();
@@ -55,8 +55,20 @@ void WIFI_Connect(){
   }
 
   delay(500);
-  Serial.println("... WiFi connected, IP: " + WiFi.localIP());
+  Serial.println("Connected to wifi");
+  Serial.print("Status: ");   Serial.println(WiFi.status());    // Network parameters
+  Serial.print("IP: ");       Serial.println(WiFi.localIP());
+  Serial.print("Subnet: ");   Serial.println(WiFi.subnetMask());
+  Serial.print("Gateway: ");  Serial.println(WiFi.gatewayIP());
+  Serial.print("SSID: ");     Serial.println(WiFi.SSID());
+  Serial.print("Signal: ");   Serial.println(WiFi.RSSI());
   Serial.println();
+  delay(1000);
+
+  Serial.println("Cayenne connecting...");
+  Cayenne.begin(dv_username, dv_password, dv_clientID, ssid, password);
+  Serial.println("Cayenne connected");
+  delay(1000);    
 }
 
 void setup() {
@@ -81,8 +93,6 @@ void setup() {
   timeClient.begin(); // Initialize a NTPClient to get time
 // Set offset time in seconds to adjust for your timezone, ex.: GMT +1 = 3600, GMT +8 = 28800, GMT -1 = -3600, GMT 0 = 0
   timeClient.setTimeOffset(3600); // Norway GMT + 1
-
-  Cayenne.begin(dv_username, dv_password, dv_clientID, ssid, password);
 }
 
 void loop() {
@@ -90,18 +100,13 @@ void loop() {
   getServerTime();
   blinkSignal();
 
-  minutesRuntime = millis() / 60000;
+  minutesRuntime = millis() / 1000;
   minutesBikeNotStill = (millis() - millisBikeNotStill) / 60000;
 
   if(WiFi.status() == WL_DISCONNECTED){
     Serial.println("WiFi connection lost! Reconnecting...");
     WiFi.disconnect();
     WIFI_Connect();
-    delay(1000);
-
-    Cayenne.begin(dv_username, dv_password, dv_clientID, ssid, password);
-    Serial.println("Cayenne reconnecting...");
-    delay(1000);    
   }
   else{
     Cayenne.loop();
@@ -166,8 +171,11 @@ void getServerTime(){
   Serial.println(epochTime);
   
   String formattedTime = timeClient.getFormattedTime();
+//  String formattedDate = timeClient.getFormattedDate();
   Serial.print("Formatted Time: ");
   Serial.println(formattedTime);
+  Serial.print(" - ");
+//  Serial.println(formattedDate);
   Serial.println();
 }
 
